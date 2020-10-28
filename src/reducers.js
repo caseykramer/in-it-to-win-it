@@ -1,4 +1,4 @@
-import {SHEET_LOADING,CELLS_LOADING,NAMES_LOADED,WINNER_FOUND,CANDIDATE_UPDATED} from '../constants'
+import {SHEET_LOADING,CELLS_LOADING,NAMES_LOADED,WINNER_FOUND,CANDIDATE_UPDATED} from './constants'
 
 const defaultState = { isLoading: false, names: [], hasWinner: false, winner: undefined, candidateName: undefined };
 const reducer = (state = defaultState,action) => {

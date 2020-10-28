@@ -3,15 +3,6 @@
     background-color: #e4e4e4;
 }
 
-.Absolute-Center {
-    margin: auto;
-    position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
-    z-index: 1000;
-    height: 1px;
-    width: 1px;
-  }
-
 .App-header {
     min-height: 100vh;
     display: flex;

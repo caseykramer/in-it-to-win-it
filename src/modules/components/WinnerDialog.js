@@ -11,6 +11,8 @@ import Typeography from './Typeography'
 import {loadNames} from '../../actions'
 import Confetti from 'react-dom-confetti';
 
+import './WinnerDialog.css'
+
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
@@ -23,6 +25,9 @@ function WinnerDialog(props) {
     const [open,setOpen] = React.useState(props.hasWinner)
     const handleClose = () => {
         props.reset()
+        setCountdown(5)
+        setBoom(false)
+        setWinnerText(`${countDown}`)
         setOpen(false)
     }
     const fettiConfig = {
@@ -45,7 +50,7 @@ function WinnerDialog(props) {
         if(countDown > 0) {          
             setWinnerText(countDown)            
         } else {
-            setWinnerText(props.winner);
+            setWinnerText(`${props.winner}!`);
             setDisableClose(false);
             setBoom(true)
         }
@@ -54,7 +59,7 @@ function WinnerDialog(props) {
                 if(countDown > 0) {
                     setCountdown(countDown - 1)
                 }
-            },1000)
+            },900)
         }
         return () => { if(props.hasWinner && timer) clearTimeout(timer) };
     })
@@ -70,6 +75,8 @@ function WinnerDialog(props) {
             maxWidth="sm"
             fullWidth
             onClose={handleClose}
+            disableBackdropClick
+            disableEscapeKeyDown
         >
             <DialogTitle>{"And the winner is..."}</DialogTitle>
             <DialogContent dividers>

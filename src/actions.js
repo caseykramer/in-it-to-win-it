@@ -1,4 +1,4 @@
-import {NAMES_LOADED, SHEET_LOADING, CELLS_LOADING,WINNER_FOUND, CANDIDATE_UPDATED} from '../constants'
+import {NAMES_LOADED, SHEET_LOADING, CELLS_LOADING,WINNER_FOUND, CANDIDATE_UPDATED} from './constants'
 import {GoogleSpreadsheet} from 'google-spreadsheet'
 
 export const sheetLoading = () => ({
@@ -13,7 +13,6 @@ export const namesLoaded = (names) => ({
 
 export const pickWinner = (names) => (dispatch) => {
     stopShowingCandidates()
-    const winner = 
     dispatch({
         type: WINNER_FOUND,
         winner: selectName(names)
