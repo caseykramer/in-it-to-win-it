@@ -45,16 +45,17 @@ export const stopShowingCandidates = () => {
 }
 
 export function loadNames() {
-    return function(dispatch) {    
+    return function(dispatch) {
         dispatch(sheetLoading());
         const sully_sheet = '1Az9DE46vFan1UDU8VPu4yCMeZVZr8muDdxqqy91qs_Y';
         const test_sheet = '1cBwmbZfWQbSVnU54KNYsMVLqJlix4QjP_nLOH9KapMI';
         const doc = new GoogleSpreadsheet(test_sheet);
-        console.log(process.env.GOOGLE_EMAIL);
+        const email = process.env.REACT_APP_GOOGLE_EMAIL
+        const key = process.env.REACT_APP_GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n')
         doc.useServiceAccountAuth(
         {
-          client_email: process.env.GOOGLE_EMAIL,
-          private_key: process.env.GOOGLE_PRIVATE_KEY
+          client_email: email,
+          private_key: key
         });
         dispatch({
             type: SHEET_LOADING,
