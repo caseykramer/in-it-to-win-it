@@ -1,25 +1,79 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react'
+import {pickWinner} from './actions'
+import { connect } from 'react-redux'
+import Paper from '@material-ui/core/Paper'
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid'
+import { makeStyles } from '@material-ui/core/styles';
+import Typeography from '@material-ui/core/Typography'
+import Backdrop from '@material-ui/core/Backdrop'
+import Candidate from './modules/components/Candidate'
+import Button from './modules/components/Button'
+import WinnerDialog from './modules/components/WinnerDialog'
 
-function App() {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    padding: theme.spacing(4)
+  },
+  paper: {
+    padding: theme.spacing(2),
+    margin: 'auto',
+    maxWidth: 1000
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+
+}));
+
+function App(props) {
+  const classes = useStyles();
+  const open = props.namesLoading   
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.root}>
+      <Paper elevation="5" className={classes.paper}>
+          <Grid container spacing={2}          
+            alignItems="center">
+              <Grid item xs="12">
+                <img src="/SullySchoolLogo.png" alt="Sully School Logo" width="200" />
+              </Grid>
+              <Grid item xs="12">
+                <Typeography variant="h3">In It to Win It!</Typeography>
+              </Grid>
+              <Grid item xs="12">
+                <hr />
+              </Grid>
+            <Grid item xs="12">
+            <Backdrop className={classes.backdrop} open={open}><CircularProgress color="inherit"></CircularProgress></Backdrop>
+            <Typeography variant="h5">Who is going to win?</Typeography>
+            </Grid>
+            <Grid item xs="12">
+              <Candidate />
+            </Grid>
+            <Grid item xs="12">
+              <Button variant="contained" color="primary" size="large" disabled={props.hasWinner} onClick={() => props.onClick(props.names)}>Lets pick a winner!</Button>
+            </Grid>
+            <Grid item xs="12">
+              <WinnerDialog hasWinner={props.hasWinner} />
+            </Grid>
+          </Grid>
+      </Paper>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  namesLoading: state.isLoading,
+  names: state.names,
+  hasWinner: state.hasWinner,
+  winner: state.winner
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onClick: (names) => dispatch(pickWinner(names))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);
