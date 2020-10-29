@@ -26,10 +26,11 @@ export const pickWinner = (names) => (dispatch) => {
 function selectName(names) {
     console.log(chosen)
     const filtered = names.filter(n => chosen.indexOf(n) < 0);
-    if(filtered) {
+    if(filtered && filtered.length > 0) {
         return filtered[Math.floor(Math.random() * filtered.length)]
     } else {
-        console.error('Names was undefined')
+        console.error('No names')
+        return "Who knows"
     }
 }
 
