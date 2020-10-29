@@ -68,7 +68,7 @@ function App(props) {
 const mapStateToProps = state => ({
   namesLoading: state.isLoading,
   names: state.names,
-  hasWinner: state.hasWinner,
+  hasWinner: state.hasWinner || state.names.length == 0,
   winner: state.winner
 });
 
