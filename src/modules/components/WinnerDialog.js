@@ -32,7 +32,7 @@ function WinnerDialog(props) {
         setBoom(false)
         setWinnerText(`${countDown}`)
         setOpen(false)
-        disableClose(true)
+        setDisableClose(true)
     }
     
     React.useEffect(() => {
