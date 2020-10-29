@@ -5,7 +5,7 @@ const reducer = (state = defaultState,action) => {
     switch(action.type) {
         case SHEET_LOADING:
         case CELLS_LOADING:
-            return {...state, isLoading: true, names: [], hasWinner:false };
+            return {...state, isLoading: true, names: [], hasWinner:false, winner: undefined };
         case NAMES_LOADED:
             return {...state, isLoading: false, names: action.names, hasWinner: false, candidateName: action.candidate};
         case CANDIDATE_UPDATED:

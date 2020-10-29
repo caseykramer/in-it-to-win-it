@@ -7,7 +7,7 @@ function Candidate(props) {
     const space = '\u00a0'
     return(
         <div>
-            <Typeography variant="h5">
+            <Typeography variant="h2">
                 <span>{space}</span>
                 <SwitchTransition>
                     <CSSTransition 

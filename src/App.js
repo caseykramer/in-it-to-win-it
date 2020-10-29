@@ -41,14 +41,14 @@ function App(props) {
                 <img src="/SullySchoolLogo.png" alt="Sully School Logo" width="200" />
               </Grid>
               <Grid item xs="12">
-                <Typeography variant="h3">In It to Win It!</Typeography>
+                <Typeography variant="h1">In It to Win It!</Typeography>
               </Grid>
               <Grid item xs="12">
                 <hr />
               </Grid>
             <Grid item xs="12">
             <Backdrop className={classes.backdrop} open={open}><CircularProgress color="inherit"></CircularProgress></Backdrop>
-            <Typeography variant="h5">Who is going to win?</Typeography>
+            <Typeography variant="h5">Who is going to win</Typeography>
             </Grid>
             <Grid item xs="12">
               <Candidate />

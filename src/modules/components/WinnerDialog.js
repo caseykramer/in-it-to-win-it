@@ -9,7 +9,8 @@ import Button from './Button'
 import { connect } from 'react-redux'
 import Typeography from './Typeography'
 import {loadNames} from '../../actions'
-import Confetti from 'react-dom-confetti';
+import Confetti from 'react-confetti';
+import useWindowSize from 'react-use/lib/useWindowSize'
 
 import './WinnerDialog.css'
 
@@ -22,7 +23,9 @@ function WinnerDialog(props) {
     const [winnerText,setWinnerText] = React.useState(`${countDown}`)
     const [disableClose,setDisableClose] = React.useState(true)
     const [boom,setBoom] = React.useState(false)
+    const [startFetti,setFetti] = React.useState(false)
     const [open,setOpen] = React.useState(props.hasWinner)
+    const { width, height } = useWindowSize()
     const handleClose = () => {
         props.reset()
         setCountdown(5)
@@ -30,29 +33,19 @@ function WinnerDialog(props) {
         setWinnerText(`${countDown}`)
         setOpen(false)
     }
-    const fettiConfig = {
-            angle: 90,
-            spread: 360,
-            startVelocity: 40,
-            elementCount: 70,
-            dragFriction: 0.12,
-            duration: "5340",
-            stagger: 3,
-            width: "10px",
-            height: "10px",
-            perspective: "390px",
-            colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
-    };
     
     React.useEffect(() => {
         setOpen(props.hasWinner)
         let timer = null
         if(countDown > 0) {          
-            setWinnerText(countDown)            
+            setWinnerText(countDown)   
+            if(countDown === 1) {
+                setFetti(true)         
+                setBoom(true)
+            }
         } else {
             setWinnerText(`${props.winner}!`);
-            setDisableClose(false);
-            setBoom(true)
+            setDisableClose(false);            
         }
         if(props.hasWinner) {
             timer = setInterval(function() {   
@@ -65,14 +58,14 @@ function WinnerDialog(props) {
     })
     return (
         <React.Fragment>
-            <span className="Absolute-Center">
-                <Confetti active={boom} config={fettiConfig} />
+            <span className="topmost">
+                <Confetti run={startFetti} recycle={boom} width={width} height={height} className="topmost" />            
             </span>
         <Dialog
             open={open}
             TransitionComponent={Transition}
             keepMounted
-            maxWidth="sm"
+            maxWidth="md"
             fullWidth
             onClose={handleClose}
             disableBackdropClick
@@ -81,7 +74,7 @@ function WinnerDialog(props) {
             <DialogTitle>{"And the winner is..."}</DialogTitle>
             <DialogContent dividers>
                 <DialogContentText>
-                    <Typeography variant="h5" align="center"><strong>{winnerText}</strong></Typeography>
+                    <Typeography variant="h3" align="center"><strong>{winnerText}</strong></Typeography>
                 </DialogContentText>                
             </DialogContent>
             <DialogActions>
