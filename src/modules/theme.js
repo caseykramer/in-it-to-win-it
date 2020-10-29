@@ -1,5 +1,8 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import { green, grey, red } from '@material-ui/core/colors';
+import 'fontsource-source-sans-pro'
+import 'fontsource-trispace'
+import 'fontsource-roboto'
 
 const rawTheme = createMuiTheme({
   palette: {
@@ -29,19 +32,18 @@ const rawTheme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: "'Work Sans', sans-serif",
+    fontFamily: "'Roboto', sans-serif",
     fontSize: 14,
-    fontWeightLight: 300, // Work Sans
-    fontWeightRegular: 400, // Work Sans
-    fontWeightMedium: 700, // Roboto Condensed
+    fontWeightLight: 300, 
+    fontWeightRegular: 400,
+    fontWeightMedium: 700,
   },
 });
 
 const fontHeader = {
   color: rawTheme.palette.text.primary,
   fontWeight: rawTheme.typography.fontWeightMedium,
-  fontFamily: "'Roboto Condensed', sans-serif",
-  textTransform: 'uppercase',
+  fontFamily: "'Roboto', sans-serif",
 };
 
 const theme = {

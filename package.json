@@ -9,6 +9,8 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "fontsource-roboto": "^3.0.3",
+    "fontsource-source-sans-pro": "^3.0.9",
+    "fontsource-trispace": "^3.0.1",
     "google-spreadsheet": "^3.0.13",
     "react": "^16.8.3",
     "react-confetti": "^6.0.0",
