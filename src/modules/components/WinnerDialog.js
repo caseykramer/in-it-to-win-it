@@ -56,7 +56,7 @@ function WinnerDialog(props) {
             },900)
         }
         return () => { if(props.hasWinner && timer) clearTimeout(timer) };
-    })
+    },[countDown,props.hasWinner,props.winner])
     return (
         <React.Fragment>
             <span className="topmost">
@@ -88,7 +88,7 @@ function WinnerDialog(props) {
 
 const mapStateToProps = state => ({
     hasWinner: state.hasWinner,
-    winner: state.winner
+    winner: state.hasWinner ? state.winner : undefined
 });
 
 const mapDispatchToProps = (dispatch) => ({

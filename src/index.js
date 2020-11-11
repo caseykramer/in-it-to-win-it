@@ -11,6 +11,13 @@ import './index.css';
 import Home from './Home';
 import reportWebVitals from './reportWebVitals';
 import 'fontsource-roboto';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import Stats from './Stats'
+
 
 
 const loggerMiddleware = createLogger()
@@ -20,7 +27,16 @@ store.dispatch(loadNames());
 render(
   <Provider store={store}>
     <React.StrictMode>
-      <Home />
+      <Router>
+        <Switch>
+          <Route path="/stats">
+            <Stats />
+          </Route>
+          <Route path="">
+            <Home />
+          </Route>
+      </Switch>
+      </Router>
     </React.StrictMode>
   </Provider>,
   document.getElementById('root')
