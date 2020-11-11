@@ -38,7 +38,7 @@ function App(props) {
           <Grid container spacing={2}          
             alignItems="center">
               <Grid item xs="12">
-                <img src="/logo.png" alt="In It to Win It" width="200" />
+                <img src="/logo.png" alt="In It to Win It" width="400" />
               </Grid>
               <Grid item xs="12">
                 <Typeography variant="h1">In It to Win It!</Typeography>
