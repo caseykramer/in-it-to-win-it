@@ -1,6 +1,6 @@
 import {NAMES_LOADED, NAMES_LOADING,WINNER_FOUND, CANDIDATE_UPDATED, ERROR,CLEAR_ERROR, STATS_LOADING,STATS_LOADED} from './constants'
 import axios from 'axios'
-const url = process.env.NODE_ENV === 'production' ? "http://sully-pta.herokuapp.com/" : "http://localhost:8080/"
+const url = process.env.NODE_ENV === 'production' ? "https://sully-pta.herokuapp.com/" : "http://localhost:8080/"
 
 let chosen = [];
 
