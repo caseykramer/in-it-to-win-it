@@ -4,9 +4,7 @@ import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import { createStore, applyMiddleware } from 'redux'
-import promise from 'redux-promise-middleware'
-import rootReducer from './reducers'
-import {loadNames} from './actions'
+import rootReducer, {defaultState} from './reducers'
 import './index.css';
 import Home from './Home';
 import reportWebVitals from './reportWebVitals';
@@ -21,8 +19,7 @@ import Stats from './Stats'
 
 
 const loggerMiddleware = createLogger()
-const store = createStore(rootReducer,{},applyMiddleware(thunkMiddleware,promise,loggerMiddleware))
-store.dispatch(loadNames());
+const store = createStore(rootReducer,defaultState,applyMiddleware(thunkMiddleware,loggerMiddleware))
 
 render(
   <Provider store={store}>

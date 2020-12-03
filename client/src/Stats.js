@@ -11,6 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Backdrop from '@material-ui/core/Backdrop'
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import theme from './modules/theme'
+import {loadStats} from './actions'
 
 const useStyles = makeStyles((theme) => ({
     backdrop: {
@@ -29,6 +30,13 @@ head: {
 function Stats(props) {
     const classes = useStyles(theme)
     const open = !props.hasStats
+    React.useEffect(() => {
+        console.log("Checking to see if we need to load stats")
+        if (props.stats === undefined || props.stats.length === 0) {
+          console.log("Loading stats")
+          props.loadStats()
+        }
+      });
     return props.stats? 
             (<TableContainer component={Paper}>
                 <Table size="small">
@@ -59,4 +67,9 @@ const mapStateToProps = state => ({
     hasStats: state.hasStats    
 });
 
-export default connect(mapStateToProps)(Stats);
+const mapDispatchToProps = (dispatch) => ({
+    loadStats: () => dispatch(loadStats())
+  })
+  
+
+export default connect(mapStateToProps,mapDispatchToProps)(Stats);
