@@ -78,6 +78,43 @@ async function loadStats() {
   return stats
 }
 
+async function loadWinners() {
+  if(cache.get("winners") !== null) {
+    console.log("Found winners in cache");
+    return cache.get("winners");
+  }
+
+  const doc = await loadDoc();
+  const winnersSheet = doc.sheetsByIndex[2];
+  const startingRow = 2;
+  await winnersSheet.loadCells("B3:E44")
+  let rowId = startingRow
+  let lastDate = ""
+  const winners = Array.from({length:14},(_,i) => {
+    if(winnersSheet.getCell(rowId,1) !== "") {
+      lastDate = winnersSheet.getCell(rowId,1).formattedValue
+    }
+    const first = {parent: winnersSheet.getCell(rowId,2).value,child: winnersSheet.getCell(rowId,3).value,year: winnersSheet.getCell(rowId,4).value};
+    rowId = rowId + 1;
+    const second = {parent: winnersSheet.getCell(rowId,2).value,child: winnersSheet.getCell(rowId,3).value,year: winnersSheet.getCell(rowId,4).value};
+    rowId = rowId + 1;
+    const third = {parent: winnersSheet.getCell(rowId,2).value,child: winnersSheet.getCell(rowId,3).value,year: winnersSheet.getCell(rowId,4).value};
+    rowId = rowId + 1;
+    return {
+      date: lastDate,
+      first: first,
+      second: second,
+      third: third
+    }
+  })
+  console.log("Winners:",winners)
+  if (winners.length > 0) {
+    cache.put("winners",winners,60000);
+  }
+
+  return winners;
+}
+
 app.use(function (req, res, next) {
   let origin = req.headers.origin;
   res.header("Access-Control-Allow-Origin", req.headers.host.indexOf("localhost") > -1 ? "http://localhost:3000" : origin);
@@ -116,7 +153,14 @@ app.get('/api/stats',async (req,res) => {
   }
 })
 app.get('/api/winners',async (req,res) => {
-  res.send({});
+  try {
+    console.log("Fetching winners")
+    const winners = await loadWinners();
+    res.send(winners)
+  } catch (err) {
+    console.log("Error fetching winners:",err);
+    res.sendStatus(400)
+  }  
 })
 
 app.get('*', (req, res) => {  
