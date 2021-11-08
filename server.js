@@ -32,7 +32,7 @@ async function loadNames() {
     return cache.get("names")
   }
   const doc = await loadDoc()
-  const firstSheet = doc.sheetsByIndex[0];
+  const firstSheet = doc.sheetsByIndex[1];
   const startingRow = 4;
   console.log("rows:" + firstSheet.rowCount)
   await firstSheet.loadCells(`A1:A${firstSheet.rowCount}`)
